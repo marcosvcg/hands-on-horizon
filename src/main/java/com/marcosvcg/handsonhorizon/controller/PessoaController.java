@@ -29,8 +29,8 @@ public class PessoaController {
         return pessoaService.getPessoaByID(id);
     }
 
-    @GetMapping("/{nome}")
-    public PessoaDTO getPessoaByNome(@PathVariable("nome") String nome) {
+    @GetMapping("/nome")
+    public PessoaDTO getPessoaByNome(@RequestParam("nome") String nome) {
         return pessoaService.getPessoaByNome(nome);
     }
 

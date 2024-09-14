@@ -31,4 +31,10 @@ public class Transferencia {
 
     @Column(nullable = false)
     private Date data;
+
+    public Transferencia(UUID id, BigDecimal valor, Date data) {
+        this.id = id;
+        this.valor = valor;
+        this.data = data;
+    }
 }

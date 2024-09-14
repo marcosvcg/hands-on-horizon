@@ -10,16 +10,16 @@ import java.util.UUID;
 @Builder
 public record TransferenciaDTO (
         UUID id,
-        ContaDTO contaOrigem,
-        ContaDTO contaDestino,
+        UUID contaOrigem,
+        UUID contaDestino,
         BigDecimal valor,
         Date data
 ) {
     public static TransferenciaDTO toDTO(Transferencia transferencia) {
         return TransferenciaDTO.builder()
                 .id(transferencia.getId())
-                .contaOrigem(ContaDTO.toDto(transferencia.getContaOrigem()))
-                .contaDestino(ContaDTO.toDto(transferencia.getContaDestino()))
+                .contaOrigem(transferencia.getContaOrigem().getId())
+                .contaDestino(transferencia.getContaDestino().getId())
                 .valor(transferencia.getValor())
                 .data(transferencia.getData())
                 .build();
@@ -28,8 +28,6 @@ public record TransferenciaDTO (
     public static Transferencia toEntity(TransferenciaDTO dto) {
         return new Transferencia(
                 dto.id(),
-                ContaDTO.toEntity(dto.contaOrigem()),
-                ContaDTO.toEntity(dto.contaDestino()),
                 dto.valor(),
                 dto.data()
         );

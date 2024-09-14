@@ -43,6 +43,31 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
+    @ExceptionHandler(ContaException.ContaNotFoundException.class)
+    public ResponseEntity<Object> handleContaNotFoundException(ContaException.ContaNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ContaException.NumeroVazioException.class)
+    public ResponseEntity<Object> handleNumeroVazioException(ContaException.NumeroVazioException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ContaException.DigitoInvalidoException.class)
+    public ResponseEntity<Object> handleDigitoInvalidoException(ContaException.DigitoInvalidoException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ContaException.SaldoInvalidoException.class)
+    public ResponseEntity<Object> handleSaldoInvalidoException(ContaException.SaldoInvalidoException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ContaException.TipoContaExistenteException.class)
+    public ResponseEntity<Object> handleTipoContaExistenteException(ContaException.TipoContaExistenteException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException() {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");

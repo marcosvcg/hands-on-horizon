@@ -20,6 +20,10 @@ public class Conta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
+
     @Column(nullable = false)
     private String numero;
 
@@ -29,9 +33,7 @@ public class Conta {
     @Column(nullable = false)
     private BigDecimal saldo;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoContaEnum tipoConta;
-
-    @OneToOne
-    private Pessoa pessoa;
 }

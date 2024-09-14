@@ -27,8 +27,11 @@ public class Pessoa {
     private String cpf;
 
     @OneToOne
+    @JoinColumn(name = "conta_corrente_id")
     private Conta contaCorrente;
+
     @OneToOne
+    @JoinColumn(name = "conta_poupanca_id")
     private Conta contaPoupanca;
 
     public Pessoa(UUID id, String nome, String telefone, String cpf) {
