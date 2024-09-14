@@ -10,9 +10,7 @@ public record PessoaDTO (
         UUID id,
         String nome,
         String telefone,
-        String cpf,
-        ContaDTO contaCorrenteDto,
-        ContaDTO contaPoupancaDto
+        String cpf
 ) {
     public static PessoaDTO toDTO(Pessoa pessoa) {
         return PessoaDTO.builder()
@@ -20,8 +18,6 @@ public record PessoaDTO (
                 .nome(pessoa.getNome())
                 .telefone(pessoa.getTelefone())
                 .cpf(pessoa.getCpf())
-                .contaCorrenteDto(ContaDTO.toDto(pessoa.getContaCorrente()))
-                .contaPoupancaDto(ContaDTO.toDto(pessoa.getContaPoupanca()))
                 .build();
     }
 
@@ -30,9 +26,7 @@ public record PessoaDTO (
                 dto.id(),
                 dto.nome(),
                 dto.telefone(),
-                dto.cpf(),
-                ContaDTO.toEntity(dto.contaCorrenteDto()),
-                ContaDTO.toEntity(dto.contaPoupancaDto())
+                dto.cpf()
         );
     }
 }

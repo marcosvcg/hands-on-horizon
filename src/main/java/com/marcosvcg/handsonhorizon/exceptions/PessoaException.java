@@ -2,7 +2,7 @@ package com.marcosvcg.handsonhorizon.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
 
-public class Exceptions {
+public class PessoaException {
 
     public static class PessoaNotFoundException extends EntityNotFoundException {
         public PessoaNotFoundException() {
@@ -25,6 +25,24 @@ public class Exceptions {
     public static class CpfVazioException extends IllegalArgumentException {
         public CpfVazioException() {
             super("O cpf não pode estar vazio.");
+        }
+    }
+
+    public static class TelefoneInvalidoException extends SecurityException {
+        public TelefoneInvalidoException() {
+            super("O telefone precisa conter apenas 11 dígitos numéricos.");
+        }
+    }
+
+    public static class CpfInvalidoException extends SecurityException {
+        public CpfInvalidoException() {
+            super("O cpf precisa conter apenas 11 dígitos numéricos.");
+        }
+    }
+
+    public static class CpfRegistradoException extends SecurityException {
+        public CpfRegistradoException() {
+            super("Esse cpf já está registrado em nossa base de dados.");
         }
     }
 }

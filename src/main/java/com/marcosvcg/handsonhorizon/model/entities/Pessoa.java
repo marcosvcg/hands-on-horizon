@@ -30,4 +30,11 @@ public class Pessoa {
     private Conta contaCorrente;
     @OneToOne
     private Conta contaPoupanca;
+
+    public Pessoa(UUID id, String nome, String telefone, String cpf) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.cpf = cpf;
+    }
 }

@@ -1,25 +1,28 @@
 package com.marcosvcg.handsonhorizon.validator;
 
-import com.marcosvcg.handsonhorizon.exceptions.Exceptions;
+import com.marcosvcg.handsonhorizon.exceptions.PessoaException;
 import com.marcosvcg.handsonhorizon.model.dto.PessoaDTO;
+import com.marcosvcg.handsonhorizon.util.ValidationHelper;
 
 public class ValidatePessoaDTO {
 
-    public boolean isNomeEmpty(PessoaDTO dto) {
+    public static boolean isNomeEmpty(PessoaDTO dto) {
         return dto.nome().isBlank();
     }
 
-    public boolean isTelefoneEmpty(PessoaDTO dto) {
-        return dto.telefone().isBlank();
+    public static boolean isTelefoneValid(PessoaDTO dto) {
+        if(dto.telefone().isBlank()) throw new PessoaException.TelefoneVazioException();
+        return !ValidationHelper.isTelefoneValid(dto.telefone());
     }
 
-    public boolean isCpfEmpty(PessoaDTO dto) {
-        return dto.cpf().isBlank();
+    public static boolean isCpfValid(PessoaDTO dto) {
+        if(dto.cpf().isBlank()) throw new PessoaException.CpfVazioException();
+        return !ValidationHelper.isCpfValid(dto.cpf());
     }
 
     public void validatePessoaDTO(PessoaDTO dto) {
-        if (isNomeEmpty(dto)) throw new Exceptions.NomeVazioException();
-        if (isTelefoneEmpty(dto)) throw new Exceptions.TelefoneVazioException();
-        if (isCpfEmpty(dto)) throw new Exceptions.CpfVazioException();
+        if (isNomeEmpty(dto)) throw new PessoaException.NomeVazioException();
+        if (isTelefoneValid(dto)) throw new PessoaException.TelefoneInvalidoException();
+        if (isCpfValid(dto)) throw new PessoaException.CpfInvalidoException();
     }
 }
