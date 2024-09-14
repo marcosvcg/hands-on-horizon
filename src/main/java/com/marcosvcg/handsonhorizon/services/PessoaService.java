@@ -1,14 +1,14 @@
 package com.marcosvcg.handsonhorizon.services;
 
 import com.marcosvcg.handsonhorizon.exceptions.Exceptions;
-import com.marcosvcg.handsonhorizon.model.entities.Pessoa;
+import com.marcosvcg.handsonhorizon.model.dto.PessoaDTO;
 import com.marcosvcg.handsonhorizon.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaService {
@@ -20,23 +20,25 @@ public class PessoaService {
         this.pessoaRepository = pessoaRepository;
     }
 
-    public List<Pessoa> getPessoas() {
-        return pessoaRepository.findAll();
+    public List<PessoaDTO> getPessoas() {
+        return pessoaRepository.findAll().stream()
+                .map(PessoaDTO::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Pessoa getPessoaByID(UUID id) {
-        Optional<Pessoa> optionalPessoa = pessoaRepository.findById(id);
-        if(optionalPessoa.isEmpty()) throw new Exceptions.PessoaNotFoundException();
-        return optionalPessoa.get();
+    public PessoaDTO getPessoaByID(UUID id) {
+        return pessoaRepository.findById(id)
+                .map(PessoaDTO::toDTO)
+                .orElseThrow(Exceptions.PessoaNotFoundException::new);
     }
 
-    public Pessoa getPessoaByNome(String nome) {
-        Optional<Pessoa> optionalPessoa = pessoaRepository.findByNome(nome);
-        if(optionalPessoa.isEmpty()) throw new Exceptions.PessoaNotFoundException();
-        return optionalPessoa.get();
+    public PessoaDTO getPessoaByNome(String nome) {
+        return pessoaRepository.findByNome(nome)
+                .map(PessoaDTO::toDTO)
+                .orElseThrow(Exceptions.PessoaNotFoundException::new);
     }
 
-    public void createPessoa(Pessoa pessoa) {
-        pessoaRepository.save(pessoa);
+    public void createPessoa(PessoaDTO dto) {
+        pessoaRepository.save(PessoaDTO.toEntity(dto));
     }
 }
