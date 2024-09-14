@@ -25,19 +25,4 @@ public class Pessoa {
 
     @Column(nullable = false)
     private String cpf;
-
-    @OneToOne
-    @JoinColumn(name = "conta_corrente_id")
-    private Conta contaCorrente;
-
-    @OneToOne
-    @JoinColumn(name = "conta_poupanca_id")
-    private Conta contaPoupanca;
-
-    public Pessoa(UUID id, String nome, String telefone, String cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.cpf = cpf;
-    }
 }
