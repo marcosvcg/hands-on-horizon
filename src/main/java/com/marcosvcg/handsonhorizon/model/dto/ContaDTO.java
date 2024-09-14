@@ -1,7 +1,6 @@
 package com.marcosvcg.handsonhorizon.model.dto;
 
 import com.marcosvcg.handsonhorizon.model.entities.Conta;
-import com.marcosvcg.handsonhorizon.model.entities.Pessoa;
 import com.marcosvcg.handsonhorizon.util.TipoContaEnum;
 import lombok.Builder;
 
@@ -15,7 +14,7 @@ public record ContaDTO (
         int digito,
         BigDecimal saldo,
         TipoContaEnum tipoConta,
-        Pessoa pessoa
+        PessoaDTO pessoaDto
 ) {
     public static ContaDTO toDto(Conta conta) {
         return ContaDTO.builder()
@@ -24,7 +23,7 @@ public record ContaDTO (
                 .digito(conta.getDigito())
                 .saldo(conta.getSaldo())
                 .tipoConta(conta.getTipoConta())
-                .pessoa(conta.getPessoa())
+                .pessoaDto(PessoaDTO.toDTO(conta.getPessoa()))
                 .build();
     }
 
@@ -35,7 +34,7 @@ public record ContaDTO (
           dto.digito(),
           dto.saldo(),
           dto.tipoConta(),
-          dto.pessoa()
+          PessoaDTO.toEntity(dto.pessoaDto())
         );
     }
 }

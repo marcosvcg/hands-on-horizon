@@ -1,6 +1,5 @@
 package com.marcosvcg.handsonhorizon.model.dto;
 
-import com.marcosvcg.handsonhorizon.model.entities.Conta;
 import com.marcosvcg.handsonhorizon.model.entities.Transferencia;
 import lombok.Builder;
 
@@ -11,16 +10,16 @@ import java.util.UUID;
 @Builder
 public record TransferenciaDTO (
         UUID id,
-        Conta contaOrigem,
-        Conta contaDestino,
+        ContaDTO contaOrigem,
+        ContaDTO contaDestino,
         BigDecimal valor,
         Date data
 ) {
     public static TransferenciaDTO toDTO(Transferencia transferencia) {
         return TransferenciaDTO.builder()
                 .id(transferencia.getId())
-                .contaOrigem(transferencia.getContaOrigem())
-                .contaDestino(transferencia.getContaDestino())
+                .contaOrigem(ContaDTO.toDto(transferencia.getContaOrigem()))
+                .contaDestino(ContaDTO.toDto(transferencia.getContaDestino()))
                 .valor(transferencia.getValor())
                 .data(transferencia.getData())
                 .build();
@@ -29,8 +28,8 @@ public record TransferenciaDTO (
     public static Transferencia toEntity(TransferenciaDTO dto) {
         return new Transferencia(
                 dto.id(),
-                dto.contaOrigem(),
-                dto.contaDestino(),
+                ContaDTO.toEntity(dto.contaOrigem()),
+                ContaDTO.toEntity(dto.contaDestino()),
                 dto.valor(),
                 dto.data()
         );

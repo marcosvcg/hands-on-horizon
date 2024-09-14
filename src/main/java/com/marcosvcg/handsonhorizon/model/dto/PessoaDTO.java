@@ -1,6 +1,5 @@
 package com.marcosvcg.handsonhorizon.model.dto;
 
-import com.marcosvcg.handsonhorizon.model.entities.Conta;
 import com.marcosvcg.handsonhorizon.model.entities.Pessoa;
 import lombok.Builder;
 
@@ -12,8 +11,8 @@ public record PessoaDTO (
         String nome,
         String telefone,
         String cpf,
-        Conta contaCorrente,
-        Conta contaPoupanca
+        ContaDTO contaCorrenteDto,
+        ContaDTO contaPoupancaDto
 ) {
     public static PessoaDTO toDTO(Pessoa pessoa) {
         return PessoaDTO.builder()
@@ -21,8 +20,8 @@ public record PessoaDTO (
                 .nome(pessoa.getNome())
                 .telefone(pessoa.getTelefone())
                 .cpf(pessoa.getCpf())
-                .contaCorrente(pessoa.getContaCorrente())
-                .contaPoupanca(pessoa.getContaPoupanca())
+                .contaCorrenteDto(ContaDTO.toDto(pessoa.getContaCorrente()))
+                .contaPoupancaDto(ContaDTO.toDto(pessoa.getContaPoupanca()))
                 .build();
     }
 
@@ -32,8 +31,8 @@ public record PessoaDTO (
                 dto.nome(),
                 dto.telefone(),
                 dto.cpf(),
-                dto.contaCorrente(),
-                dto.contaPoupanca()
+                ContaDTO.toEntity(dto.contaCorrenteDto()),
+                ContaDTO.toEntity(dto.contaPoupancaDto())
         );
     }
 }
