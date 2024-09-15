@@ -37,6 +37,7 @@ public class TransferenciaService {
         ContaDTO contaOrigemDto = contaService.getContaById(transferenciaDto.contaOrigemId());
         ContaDTO contaDestinoDto = contaService.getContaById(transferenciaDto.contaDestinoId());
 
+        if(ValidateTransferenciaDTO.isValorInvalid(transferenciaDto)) throw new TransferenciaException.ValorInvalidoException();
         if(ValidateTransferenciaDTO.isTransferenciaInvalid(contaOrigemDto, contaDestinoDto)) throw new TransferenciaException.ContaInvalidaException();
         if(ValidateTransferenciaDTO.isSaldoInvalid(contaOrigemDto)) throw new ContaException.SaldoInvalidoException();
 

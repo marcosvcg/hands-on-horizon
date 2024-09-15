@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -33,5 +33,5 @@ public class Transferencia {
     private BigDecimal valor;
 
     @Column(nullable = false)
-    private Date data;
+    private LocalDateTime data;
 }
