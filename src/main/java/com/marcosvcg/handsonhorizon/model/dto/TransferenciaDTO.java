@@ -3,6 +3,7 @@ package com.marcosvcg.handsonhorizon.model.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcosvcg.handsonhorizon.model.entities.Conta;
 import com.marcosvcg.handsonhorizon.model.entities.Transferencia;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 import java.math.BigDecimal;
@@ -15,6 +16,8 @@ public record TransferenciaDTO (
         UUID contaOrigemId,
         UUID contaDestinoId,
         BigDecimal valor,
+
+        @Schema(description = "Data da transferência", example = "15/09/2024 16:00:00")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
         Date data
 ) {

@@ -38,7 +38,7 @@ public class PessoaController {
         return pessoaService.getPessoaByNome(nome);
     }
 
-    @Operation(description = "Cria uma pessoa")
+    @Operation(description = "Cria uma pessoa. O ID já é gerado automaticamente.")
     @PostMapping
     public void createPessoa(@RequestBody PessoaDTO pessoaDTO) {
         pessoaService.createPessoa(pessoaDTO);

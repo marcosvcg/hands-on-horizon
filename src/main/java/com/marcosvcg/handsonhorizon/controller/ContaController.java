@@ -33,7 +33,7 @@ public class ContaController {
         return contaService.getContaById(id);
     }
 
-    @Operation(description = "Cria uma conta bancária")
+    @Operation(description = "Cria uma conta bancária, com a mesma podendo ser do tipo \"CORRENTE\" ou \"POUPANCA\". O ID já é gerado automaticamente.")
     @PostMapping
     public void createConta(@RequestBody ContaDTO contaDTO) {
         contaService.createConta(contaDTO);

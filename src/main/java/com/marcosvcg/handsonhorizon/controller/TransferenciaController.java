@@ -25,7 +25,10 @@ public class TransferenciaController {
         return transferenciaService.getTransferencias();
     }
 
-    @Operation(description = "Realiza a transferência de uma conta origem para uma conta destino, referenciando pelo ID de cada")
+    @Operation(description = """
+            Realiza a transferência de uma conta origem para uma conta destino, referenciando pelo ID de cada. O ID já é gerado automaticamente.
+
+            O formato da data segue esse padrão: 15/09/2024 16:00:00""")
     @PostMapping
     public void transferir(@RequestBody TransferenciaDTO transferenciaDTO) {
         transferenciaService.transferir(transferenciaDTO);
