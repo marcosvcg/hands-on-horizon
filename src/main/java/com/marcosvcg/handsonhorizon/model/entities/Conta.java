@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,4 +37,19 @@ public class Conta {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoContaEnum tipoConta;
+
+    @OneToMany(mappedBy = "contaOrigem")
+    private List<Transferencia> transferenciasOrigem;
+
+    @OneToMany(mappedBy = "contaDestino")
+    private List<Transferencia> transferenciasDestino;
+
+    public Conta(UUID id, Pessoa pessoa, String numero, int digito, BigDecimal saldo, TipoContaEnum tipoContaEnum) {
+        this.id = id;
+        this.pessoa = pessoa;
+        this.numero = numero;
+        this.digito = digito;
+        this.saldo = saldo;
+        this.tipoConta = tipoContaEnum;
+    }
 }

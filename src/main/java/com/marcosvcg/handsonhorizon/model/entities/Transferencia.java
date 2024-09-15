@@ -21,9 +21,12 @@ public class Transferencia {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "conta_origem_id", nullable = false)
     private Conta contaOrigem;
-    @OneToOne
+
+    @ManyToOne
+    @JoinColumn(name = "conta_destino_id", nullable = false)
     private Conta contaDestino;
 
     @Column(nullable = false)
@@ -31,10 +34,4 @@ public class Transferencia {
 
     @Column(nullable = false)
     private Date data;
-
-    public Transferencia(UUID id, BigDecimal valor, Date data) {
-        this.id = id;
-        this.valor = valor;
-        this.data = data;
-    }
 }

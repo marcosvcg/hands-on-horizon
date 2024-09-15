@@ -56,6 +56,26 @@ public class ContaService {
         contaRepository.save(ContaDTO.toEntity(contaDto, pessoaDto));
     }
 
+    public void updateConta(ContaDTO dto) {
+        ContaDTO contaExistenteDto = getContaById(dto.id());
+        validator.validateContaDTO(dto);
+
+        ContaDTO contaAtualizadaDto = dto.atualizarSaldo(dto.saldo());
+//        ContaDTO contaAtualizadaDto = ContaDTO.builder()
+//                .id(dto.id())
+//                .pessoaId(dto.pessoaId())
+//                .numero(dto.numero())
+//                .digito(dto.digito())
+//                .saldo(dto.saldo())
+//                .tipoConta(dto.tipoConta())
+//                .build();
+
+        contaRepository.save(ContaDTO.toEntity(
+                contaAtualizadaDto,
+                pessoaService.getPessoaByID(contaExistenteDto.pessoaId()))
+        );
+    }
+
     public BigDecimal consultarSaldo(UUID id) {
         ContaDTO dto = getContaById(id);
         if(ValidateContaDTO.isSaldoInvalid(dto)) throw new ContaException.SaldoInvalidoException();

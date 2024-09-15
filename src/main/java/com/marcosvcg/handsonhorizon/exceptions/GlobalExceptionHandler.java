@@ -68,6 +68,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
+    @ExceptionHandler(TransferenciaException.SaldoInsuficienteException.class)
+    public ResponseEntity<Object> handleSaldoInsuficienteException(TransferenciaException.SaldoInsuficienteException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(TransferenciaException.ValorInvalidoException.class)
+    public ResponseEntity<Object> handleValorInvalidoException(TransferenciaException.ValorInvalidoException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(TransferenciaException.ContaInvalidaException.class)
+    public ResponseEntity<Object> handleContaInvalidaException(TransferenciaException.ContaInvalidaException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException() {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");

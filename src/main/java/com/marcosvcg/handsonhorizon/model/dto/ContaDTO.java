@@ -37,4 +37,15 @@ public record ContaDTO (
           dto.tipoConta()
         );
     }
+
+    public ContaDTO atualizarSaldo(BigDecimal novoSaldo) {
+        return ContaDTO.builder()
+                .id(this.id)
+                .pessoaId(this.pessoaId)
+                .numero(this.numero)
+                .digito(this.digito)
+                .saldo(novoSaldo)  // Atualiza apenas o saldo
+                .tipoConta(this.tipoConta)
+                .build();
+    }
 }
