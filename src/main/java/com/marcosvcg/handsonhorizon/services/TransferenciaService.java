@@ -6,12 +6,10 @@ import com.marcosvcg.handsonhorizon.model.dto.ContaDTO;
 import com.marcosvcg.handsonhorizon.model.dto.TransferenciaDTO;
 import com.marcosvcg.handsonhorizon.model.entities.Transferencia;
 import com.marcosvcg.handsonhorizon.repository.TransferenciaRepository;
-import com.marcosvcg.handsonhorizon.validator.ValidateContaDTO;
 import com.marcosvcg.handsonhorizon.validator.ValidateTransferenciaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,10 +38,10 @@ public class TransferenciaService {
         ContaDTO contaDestinoDto = contaService.getContaById(transferenciaDto.contaDestinoId());
 
         if(ValidateTransferenciaDTO.isTransferenciaInvalid(contaOrigemDto, contaDestinoDto)) throw new TransferenciaException.ContaInvalidaException();
-        if(ValidateContaDTO.isSaldoInvalid(contaOrigemDto)) throw new ContaException.SaldoInvalidoException();
+        if(ValidateTransferenciaDTO.isSaldoInvalid(contaOrigemDto)) throw new ContaException.SaldoInvalidoException();
 
-        ContaDTO contaOrigemAtualizada = subtrairSaldo(contaOrigemDto, transferenciaDto.valor());
-        ContaDTO contaDestinoAtualizada = adicionarSaldo(contaDestinoDto, transferenciaDto.valor());
+        ContaDTO contaOrigemAtualizada = contaService.subtrairSaldo(contaOrigemDto, transferenciaDto.valor());
+        ContaDTO contaDestinoAtualizada = contaService.adicionarSaldo(contaDestinoDto, transferenciaDto.valor());
 
         contaService.updateConta(contaOrigemAtualizada);
         contaService.updateConta(contaDestinoAtualizada);
@@ -53,20 +51,5 @@ public class TransferenciaService {
                 ContaDTO.toEntity(contaDestinoDto, pessoaService.getPessoaByID(contaDestinoDto.pessoaId())));
 
         transferenciaRepository.save(transferencia);
-    }
-
-    public ContaDTO subtrairSaldo(ContaDTO contaOrigemDto, BigDecimal valor) {
-        if(ValidateTransferenciaDTO.isValorInvalid(valor)) throw new TransferenciaException.ValorInvalidoException();
-        if(ValidateContaDTO.isSaldoInvalid(contaOrigemDto)) throw new TransferenciaException.SaldoInsuficienteException();
-        BigDecimal saldoAtualizado = contaOrigemDto.saldo().subtract(valor);
-
-        return contaOrigemDto.atualizarSaldo(saldoAtualizado);
-    }
-
-    public ContaDTO adicionarSaldo(ContaDTO contaDestinoDto, BigDecimal valor) {
-        if(ValidateTransferenciaDTO.isValorInvalid(valor)) throw new TransferenciaException.ValorInvalidoException();
-        BigDecimal saldoAtualizado = contaDestinoDto.saldo().add(valor);
-
-        return contaDestinoDto.atualizarSaldo(saldoAtualizado);
     }
 }

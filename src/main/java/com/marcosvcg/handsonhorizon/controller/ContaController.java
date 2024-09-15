@@ -30,11 +30,6 @@ public class ContaController {
         return contaService.getContaById(id);
     }
 
-    @GetMapping("/pessoaId")
-    public ContaDTO getContaByPessoaId(@RequestParam("pessoaId") UUID id) {
-        return contaService.getContaByPessoaId(id);
-    }
-
     @PostMapping
     public void createConta(@RequestBody ContaDTO contaDTO) {
         contaService.createConta(contaDTO);
@@ -43,5 +38,19 @@ public class ContaController {
     @GetMapping("/{contaId}/saldo")
     public BigDecimal consultarSaldo(@PathVariable("contaId") UUID id) {
         return contaService.consultarSaldo(id);
+    }
+
+    @PostMapping("/{contaId}/deposito")
+    public void deposito(@PathVariable("contaId") UUID id, @RequestBody BigDecimal valor) {
+        ContaDTO dto = contaService.getContaById(id);
+        ContaDTO contaAtualizadaDto = contaService.adicionarSaldo(dto, valor);
+        contaService.updateConta(contaAtualizadaDto);
+    }
+
+    @PostMapping("/{contaId}/saque")
+    public void saque(@PathVariable("contaId") UUID id, @RequestBody BigDecimal valor) {
+        ContaDTO dto = contaService.getContaById(id);
+        ContaDTO contaAtualizadaDto = contaService.subtrairSaldo(dto, valor);
+        contaService.updateConta(contaAtualizadaDto);
     }
 }

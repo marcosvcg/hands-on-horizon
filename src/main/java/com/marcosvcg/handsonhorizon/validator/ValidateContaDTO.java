@@ -7,6 +7,10 @@ import java.math.BigDecimal;
 
 public class ValidateContaDTO {
 
+    public static boolean isValorInvalid(BigDecimal valor) {
+        return valor == null || valor.compareTo(BigDecimal.ZERO) < 0;
+    }
+
     public static boolean isNumeroEmpty(ContaDTO dto) {
         return dto.numero().isEmpty();
     }
