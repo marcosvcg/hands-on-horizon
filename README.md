@@ -3,7 +3,7 @@ Implementação do desafio do processo seletivo para estágio em desenvolvimento
 
 ## Pré-requisitos:
 Para executar o sistema, você irá precisar de:
-1. [Java 17](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html) ou superior 
+1. [Java 17](https://www.oracle.com/br/java/technologies/downloads/) ou superior 
 2. [PostgreSQL 15](https://www.postgresql.org/download/)
 3. IDE da sua escolha, como por exemplo o [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
@@ -11,10 +11,17 @@ Para executar o sistema, você irá precisar de:
 1. Vá para o arquivo "applicaion.properties" em src/main/resources
 2. Altere as credenciais para os dados da sua máquina, como por exemplo:
 ```properties
-spring.datasource.username=${DATABASE_USER} = postgres
-spring.datasource.password=${DATABASE_PASSWORD} = postgres
-spring.datasource.url=${DATABASE_URL} = jdbc:postgresql://localhost:5432/{nomeDoDatabase}
+spring.datasource.username=${DATABASE_USER}
+spring.datasource.password=${DATABASE_PASSWORD}
+spring.datasource.url=${DATABASE_URL}
 ```
+Para:
+```properties
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.datasource.url=jdbc:postgresql://localhost:5432/{nomeDoDatabase}
+```
+Ou use as variáveis de ambiente se preferir.
 
 ## Como executar o projeto:
 1. Acesse a URL do servidor: https://localhost:8080
