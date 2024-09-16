@@ -20,6 +20,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
+    @ExceptionHandler(PessoaException.NomeInvalidoException.class)
+    public ResponseEntity<Object> NomeInvalidoException(PessoaException.NomeInvalidoException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
     @ExceptionHandler(PessoaException.TelefoneVazioException.class)
     public ResponseEntity<Object> handleTelefoneVazioException(PessoaException.TelefoneVazioException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

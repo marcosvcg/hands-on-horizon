@@ -20,7 +20,7 @@ public record PessoaDTO (
     public static PessoaDTO toDTO(Pessoa pessoa) {
         return PessoaDTO.builder()
                 .id(pessoa.getId())
-                .nome(pessoa.getNome())
+                .nome(pessoa.getNome().trim())
                 .telefone(pessoa.getTelefone())
                 .cpf(pessoa.getCpf())
                 .build();
@@ -29,7 +29,7 @@ public record PessoaDTO (
     public static Pessoa toEntity(PessoaDTO dto) {
         return new Pessoa(
                 dto.id(),
-                dto.nome(),
+                dto.nome().trim(),
                 dto.telefone(),
                 dto.cpf()
         );

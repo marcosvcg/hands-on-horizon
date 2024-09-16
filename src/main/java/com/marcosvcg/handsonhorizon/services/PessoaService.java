@@ -35,7 +35,7 @@ public class PessoaService {
     }
 
     public PessoaDTO getPessoaByNome(String nome) {
-        return pessoaRepository.findByNome(nome)
+        return pessoaRepository.findByNomeIgnoreCase(nome)
                 .map(PessoaDTO::toDTO)
                 .orElseThrow(PessoaException.PessoaNotFoundException::new);
     }

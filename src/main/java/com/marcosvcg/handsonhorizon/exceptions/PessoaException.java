@@ -16,6 +16,12 @@ public class PessoaException {
         }
     }
 
+    public static class NomeInvalidoException extends IllegalArgumentException {
+        public NomeInvalidoException() {
+            super("Nome inválido.");
+        }
+    }
+
     public static class TelefoneVazioException extends IllegalArgumentException {
         public TelefoneVazioException() {
             super("O telefone não pode estar vazio.");
