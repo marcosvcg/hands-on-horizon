@@ -1,7 +1,6 @@
 package com.marcosvcg.handsonhorizon.services;
 
 import com.marcosvcg.handsonhorizon.exceptions.ContaException;
-import com.marcosvcg.handsonhorizon.exceptions.TransferenciaException;
 import com.marcosvcg.handsonhorizon.model.dto.ContaDTO;
 import com.marcosvcg.handsonhorizon.model.dto.PessoaDTO;
 import com.marcosvcg.handsonhorizon.model.entities.Conta;
@@ -64,15 +63,15 @@ public class ContaService {
     }
 
     public ContaDTO subtrairSaldo(ContaDTO contaOrigemDto, BigDecimal valor) {
-        if(ValidateContaDTO.isValorInvalid(valor)) throw new TransferenciaException.ValorInvalidoException();
-        if(ValidateContaDTO.isSaldoInvalid(contaOrigemDto)) throw new TransferenciaException.SaldoInsuficienteException();
+        if(ValidateContaDTO.isValorInvalid(valor)) throw new ContaException.ValorInvalidoException();
+        if(ValidateContaDTO.isSaldoInvalid(contaOrigemDto)) throw new ContaException.SaldoInvalidoException();
         BigDecimal saldoAtualizado = contaOrigemDto.saldo().subtract(valor);
 
         return contaOrigemDto.atualizarSaldo(saldoAtualizado);
     }
 
     public ContaDTO adicionarSaldo(ContaDTO contaDestinoDto, BigDecimal valor) {
-        if(ValidateContaDTO.isValorInvalid(valor)) throw new TransferenciaException.ValorInvalidoException();
+        if(ValidateContaDTO.isValorInvalid(valor)) throw new ContaException.ValorInvalidoException();
         BigDecimal saldoAtualizado = contaDestinoDto.saldo().add(valor);
 
         return contaDestinoDto.atualizarSaldo(saldoAtualizado);

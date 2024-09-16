@@ -65,6 +65,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
+    @ExceptionHandler(ContaException.ValorInvalidoException.class)
+    public ResponseEntity<Object> handleValorInvalidoException(ContaException.ValorInvalidoException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
     @ExceptionHandler(ContaException.TipoContaInvalidoException.class)
     public ResponseEntity<Object> handleTipoContaInvalidoException(ContaException.TipoContaInvalidoException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

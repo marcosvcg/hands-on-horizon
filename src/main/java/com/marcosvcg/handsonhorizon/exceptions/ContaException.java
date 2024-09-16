@@ -28,6 +28,12 @@ public class ContaException {
         }
     }
 
+    public static class ValorInvalidoException extends IllegalArgumentException {
+        public ValorInvalidoException() {
+            super("O valor para as operações de saque ou depósito não pode ser nulo e nem negativo.");
+        }
+    }
+
     public static class TipoContaInvalidoException extends IllegalArgumentException {
         public TipoContaInvalidoException() {
             super("O tipo da conta está inválido, use os tipos CORRENTE ou POUPANCA.");
