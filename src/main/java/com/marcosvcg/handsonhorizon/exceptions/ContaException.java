@@ -28,6 +28,12 @@ public class ContaException {
         }
     }
 
+    public static class TipoContaInvalidoException extends IllegalArgumentException {
+        public TipoContaInvalidoException() {
+            super("O tipo da conta está inválido, use os tipos CORRENTE ou POUPANCA.");
+        }
+    }
+
     public static class TipoContaExistenteException extends IllegalArgumentException {
         public TipoContaExistenteException() {
             super("O cliente já possui uma conta com esse tipo.");

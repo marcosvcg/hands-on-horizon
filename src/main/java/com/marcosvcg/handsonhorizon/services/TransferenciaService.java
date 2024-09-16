@@ -1,7 +1,5 @@
 package com.marcosvcg.handsonhorizon.services;
 
-import com.marcosvcg.handsonhorizon.exceptions.ContaException;
-import com.marcosvcg.handsonhorizon.exceptions.TransferenciaException;
 import com.marcosvcg.handsonhorizon.model.dto.ContaDTO;
 import com.marcosvcg.handsonhorizon.model.dto.TransferenciaDTO;
 import com.marcosvcg.handsonhorizon.model.entities.Transferencia;
@@ -19,6 +17,7 @@ public class TransferenciaService {
     private final TransferenciaRepository transferenciaRepository;
     private final ContaService contaService;
     private final PessoaService pessoaService;
+    private final ValidateTransferenciaDTO validator = new ValidateTransferenciaDTO();
 
     @Autowired
     public TransferenciaService(TransferenciaRepository transferenciaRepository, ContaService contaService, PessoaService pessoaService) {
@@ -37,9 +36,7 @@ public class TransferenciaService {
         ContaDTO contaOrigemDto = contaService.getContaById(transferenciaDto.contaOrigemId());
         ContaDTO contaDestinoDto = contaService.getContaById(transferenciaDto.contaDestinoId());
 
-        if(ValidateTransferenciaDTO.isValorInvalid(transferenciaDto)) throw new TransferenciaException.ValorInvalidoException();
-        if(ValidateTransferenciaDTO.isTransferenciaInvalid(contaOrigemDto, contaDestinoDto)) throw new TransferenciaException.ContaInvalidaException();
-        if(ValidateTransferenciaDTO.isSaldoInvalid(contaOrigemDto)) throw new ContaException.SaldoInvalidoException();
+        validator.validateTransferenciaDTO(transferenciaDto, contaOrigemDto, contaDestinoDto);
 
         ContaDTO contaOrigemAtualizada = contaService.subtrairSaldo(contaOrigemDto, transferenciaDto.valor());
         ContaDTO contaDestinoAtualizada = contaService.adicionarSaldo(contaDestinoDto, transferenciaDto.valor());

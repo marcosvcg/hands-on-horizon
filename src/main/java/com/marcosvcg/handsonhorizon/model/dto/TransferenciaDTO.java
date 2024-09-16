@@ -18,7 +18,7 @@ public record TransferenciaDTO (
         UUID contaDestinoId,
         @Schema(example = "150.00")
         BigDecimal valor,
-        @Schema(type = "string", example = "15/09/2024 20:00:00", pattern = "dd/MM/yyyy HH:mm:ss")
+        @Schema(type = "string", example = "15/09/2024 20:00:00")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
         LocalDateTime data
 ) {
