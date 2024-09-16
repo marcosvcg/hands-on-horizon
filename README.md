@@ -15,7 +15,9 @@ spring.datasource.username=${DATABASE_USER}
 spring.datasource.password=${DATABASE_PASSWORD}
 spring.datasource.url=${DATABASE_URL}
 ```
+
 Para:
+
 ```properties
 spring.datasource.username=postgres
 spring.datasource.password=postgres
